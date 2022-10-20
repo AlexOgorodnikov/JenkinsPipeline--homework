@@ -1,0 +1,79 @@
+Started by user Alex
+[Pipeline] Start of Pipeline
+[Pipeline] node
+Running on Jenkins in /var/lib/jenkins/workspace/pipehomework
+[Pipeline] {
+[Pipeline] stage
+[Pipeline] { (Package build)
+[Pipeline] node
+Running on Jenkins in /var/lib/jenkins/workspace/pipehomework@2
+[Pipeline] {
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] withDockerRegistry
+$ docker login -u admin -p ******** https://130.193.51.9:8123/
+WARNING! Using --password via the CLI is insecure. Use --password-stdin.
+WARNING! Your password will be stored unencrypted in /var/lib/jenkins/workspace/pipehomework@2@tmp/19f864bb-940a-429f-90e3-fcbc0deb97cf/config.json.
+Configure a credential helper to remove this warning. See
+https://docs.docker.com/engine/reference/commandline/login/#credentials-store
+
+Login Succeeded
+[Pipeline] {
+[Pipeline] isUnix
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] sh
++ docker inspect -f . 130.193.51.9:8123/jpipe
+.
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] withDockerContainer
+Jenkins does not seem to be running inside a container
+$ docker run -t -d -u 114:119 -v /var/run/docker.sock:/var/run/docker.sock -w /var/lib/jenkins/workspace/pipehomework@2 -v /var/lib/jenkins/workspace/pipehomework@2:/var/lib/jenkins/workspace/pipehomework@2:rw,z -v /var/lib/jenkins/workspace/pipehomework@2@tmp:/var/lib/jenkins/workspace/pipehomework@2@tmp:rw,z -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** 130.193.51.9:8123/jpipe cat
+$ docker top 67123507369c663ed4eab0911ad1cdfe41f8e939d6dcafca238c87e1d2b6496f -eo pid,comm
+[Pipeline] {
+[Pipeline] git
+The recommended git tool is: NONE
+No credentials specified
+Warning: JENKINS-30600: special launcher org.jenkinsci.plugins.docker.workflow.WithContainerStep$Decorator$1@166f2c72; decorates hudson.Launcher$LocalLauncher@1250ba67 will be ignored (a typical symptom is the Git executable not being run inside a designated container)
+ > git rev-parse --resolve-git-dir /var/lib/jenkins/workspace/pipehomework@2/.git # timeout=10
+Fetching changes from the remote Git repository
+ > git config remote.origin.url https://github.com/AlexOgorodnikov/Java-app.git # timeout=10
+Fetching upstream changes from https://github.com/AlexOgorodnikov/Java-app.git
+ > git --version # timeout=10
+ > git --version # 'git version 2.34.1'
+ > git fetch --tags --force --progress -- https://github.com/AlexOgorodnikov/Java-app.git +refs/heads/*:refs/remotes/origin/* # timeout=10
+ > git rev-parse refs/remotes/origin/master^{commit} # timeout=10
+Checking out Revision 79d542a02ca7c9367ad405a57b36cfcb13624d2a (refs/remotes/origin/master)
+ > git config core.sparsecheckout # timeout=10
+ > git checkout -f 79d542a02ca7c9367ad405a57b36cfcb13624d2a # timeout=10
+ > git branch -a -v --no-abbrev # timeout=10
+ > git branch -D master # timeout=10
+ > git checkout -b master 79d542a02ca7c9367ad405a57b36cfcb13624d2a # timeout=10
+Commit message: "Updated for 1.2.0 client"
+ > git rev-list --no-walk 79d542a02ca7c9367ad405a57b36cfcb13624d2a # timeout=10
+[Pipeline] sh
++ mvn package
+/var/lib/jenkins/workspace/pipehomework@2@tmp/durable-05c9b423/script.sh: line 1: mvn: not found
+[Pipeline] }
+$ docker stop --time=1 67123507369c663ed4eab0911ad1cdfe41f8e939d6dcafca238c87e1d2b6496f
+$ docker rm -f 67123507369c663ed4eab0911ad1cdfe41f8e939d6dcafca238c87e1d2b6496f
+[Pipeline] // withDockerContainer
+[Pipeline] }
+[Pipeline] // withDockerRegistry
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // node
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Deploy app)
+Stage "Deploy app" skipped due to earlier failure(s)
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] }
+[Pipeline] // node
+[Pipeline] End of Pipeline
+ERROR: script returned exit code 127
+Finished: FAILURE
